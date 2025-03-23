@@ -7,6 +7,7 @@
 #define MAX_EVENTS 100
 
 // Structure to store events
+
 typedef struct {
     int day, month, year;
     char description[100];
@@ -16,6 +17,7 @@ Event events[MAX_EVENTS]; // Array to store events
 int eventCount = 0;       // Number of stored events
 
 // Function to calculate the first day of the month using Zeller's Congruence
+
 int getFirstDayOfMonth(int month, int year) {
     if (month < 3) {
         month += 12;
