@@ -6,17 +6,17 @@
 
 #define MAX_EVENTS 100
 
-// Structure to store events
+
 
 typedef struct {
     int day, month, year;
     char description[100];
 } Event;
 
-Event events[MAX_EVENTS]; // Array to store events
-int eventCount = 0;       // Number of stored events
+Event events[MAX_EVENTS]; 
+int eventCount = 0;       
 
-// Function to calculate the first day of the month using Zeller's Congruence
+
 
 int getFirstDayOfMonth(int month, int year) {
     if (month < 3) {
@@ -29,7 +29,7 @@ int getFirstDayOfMonth(int month, int year) {
     return day; // Returns 0=Saturday, 1=Sunday, ..., 6=Friday
 }
 
-// Function to add an event
+
 void addEvent() {
     if (eventCount >= MAX_EVENTS) {
         printf("Event list is full!\n");
@@ -52,7 +52,7 @@ void addEvent() {
     eventCount++;
 }
 
-// Function to check if an event exists for a given day
+
 void printEventMarker(int day, int month) {
     for (int i = 0; i < eventCount; i++) {
         if (events[i].day == day && events[i].month == month) {
@@ -63,7 +63,7 @@ void printEventMarker(int day, int month) {
     printf(" "); // No event
 }
 
-// Function to print all events for a specific month
+
 void printEventsForMonth(int month) {
     int found = 0;
     printf("\nEvents in this month:\n");
@@ -78,7 +78,7 @@ void printEventsForMonth(int month) {
     }
 }
 
-// Function to print the calendar for a given month
+
 void printMonth(int month, int year) {
     int daysInMonth[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     char *weekdays[] = {"Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"};
@@ -131,7 +131,7 @@ void printCalendar(int year) {
     }
 }
 
-// Main function
+
 int main() {
     int choice;
     int year = 2025;
