@@ -6,18 +6,16 @@
 
 #define MAX_EVENTS 100
 
-
-
+// Structure to store events
 typedef struct {
     int day, month, year;
     char description[100];
 } Event;
 
-Event events[MAX_EVENTS]; 
-int eventCount = 0;       
+Event events[MAX_EVENTS]; // Array to store events
+int eventCount = 0;       // Number of stored events
 
-
-
+// Function to calculate the first day of the month using Zeller's Congruence
 int getFirstDayOfMonth(int month, int year) {
     if (month < 3) {
         month += 12;
@@ -28,8 +26,39 @@ int getFirstDayOfMonth(int month, int year) {
     int day = (1 + (13 * (month + 1)) / 5 + k + k / 4 + j / 4 + 5 * j) % 7;
     return day; // Returns 0=Saturday, 1=Sunday, ..., 6=Friday
 }
+void deleteEvent() {
+    if (eventCount == 0) {
+        printf("No events to delete!\n");
+        return;
+    }
 
+    int day, month;
+    printf("\nEnter event date to delete:\n");
+    printf("Day (1-31): ");
+    scanf("%d", &day);
+    printf("Month (1-12): ");
+    scanf("%d", &month);
 
+    int found = 0;
+    for (int i = 0; i < eventCount; i++) {
+        if (events[i].day == day && events[i].month == month) {
+            found = 1;
+            // Shift events left to remove the event
+            for (int j = i; j < eventCount - 1; j++) {
+                events[j] = events[j + 1];
+            }
+            eventCount--;
+            printf("Event on %d/%d deleted successfully!\n", day, month);
+            break;
+        }
+    }
+
+    if (!found) {
+        printf("No event found on %d/%d!\n", day, month);
+    }
+}
+
+// Function to add an event
 void addEvent() {
     if (eventCount >= MAX_EVENTS) {
         printf("Event list is full!\n");
@@ -52,7 +81,7 @@ void addEvent() {
     eventCount++;
 }
 
-
+// Function to check if an event exists for a given day
 void printEventMarker(int day, int month) {
     for (int i = 0; i < eventCount; i++) {
         if (events[i].day == day && events[i].month == month) {
@@ -63,7 +92,7 @@ void printEventMarker(int day, int month) {
     printf(" "); // No event
 }
 
-
+// Function to print all events for a specific month
 void printEventsForMonth(int month) {
     int found = 0;
     printf("\nEvents in this month:\n");
@@ -78,7 +107,7 @@ void printEventsForMonth(int month) {
     }
 }
 
-
+// Function to print the calendar for a given month
 void printMonth(int month, int year) {
     int daysInMonth[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     char *weekdays[] = {"Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"};
@@ -131,7 +160,7 @@ void printCalendar(int year) {
     }
 }
 
-
+// Main function
 int main() {
     int choice;
     int year = 2025;
@@ -141,7 +170,8 @@ int main() {
         printf("1. View Full Calendar\n");
         printf("2. View Specific Month\n");
         printf("3. Add Event\n");
-        printf("4. Exit\n");
+        printf("4. Delete Event\n");
+        printf("5. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
 
@@ -164,6 +194,9 @@ int main() {
                 addEvent();
                 break;
             case 4:
+                 deleteEvent();
+                break;
+            case 5:
                 printf("Dhanyabadd tapaiko samaya ko lagi\n");
                 return 0;
             default:
@@ -173,4 +206,3 @@ int main() {
 
     return 0;
 }
-
